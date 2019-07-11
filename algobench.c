@@ -151,7 +151,7 @@ int main(int argc, char** argv){
 					buffer[k] = '#';
 				}
 				printf("\r%*s\r",80,"");
-				printf("\tProcessing %u bytes %u times took %us\n", width, 1UL<<(iterShifts), GET_TIME-curTime);
+				printf("\tProcessing %lu bytes %u times took %us\n", width, 1UL<<(iterShifts), GET_TIME-curTime);
 			}
 		}
 		
@@ -173,7 +173,7 @@ int main(int argc, char** argv){
 					hashFunction[i](header,hash,width);
 					hashFunction[i](header,hash,width);
 				}while(--ctr);
-				printf("\tCalculating %u hashes took: %us\n", 1UL<<(iterShifts), GET_TIME-curTime);
+				printf("\tCalculating %lu hashes took: %us\n", 1UL<<(iterShifts), GET_TIME-curTime);
 			}
 		}
 	}
