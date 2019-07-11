@@ -1,18 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <stdint.h>
 #include <time.h>
 #include "sha3.h"
 
-// borrowed from yiimp
-long long GET_TIME()
-{
-        long long milliseconds;
+uint64_t getTime(){
         struct timespec te;
         clock_gettime(CLOCK_REALTIME, &te);
-        milliseconds = 1000LL*te.tv_sec + round(te.tv_nsec/1e6);
-        return milliseconds;
+        return 1000ULL*te.tv_sec + te.tv_nsec/1000000ULL;
 }
 
 int main(int argc, char** argv){
@@ -26,23 +21,22 @@ int main(int argc, char** argv){
 	uint32_t iter          = 1UL<<(iterShifts-3);
 	uint8_t* header        = (uint8_t*)header32;
 	uint8_t* hash          = header;
-	long long curTime      = 0;
+	uint64_t curTime       = 0;
 	uint8_t  width         = 0;
-	uint32_t ctr           = iter;
+	uint32_t ctr           = 0;
 	srand(seed);
 	for(uint8_t i=0;i<32;i++) header32[i] = rand();
 	if(printing){
-		iter>>=6; ctr>>=6; 
 		char buffer[65] = {0};
 		for(uint8_t i=0; i<12; i++){
 			printf("\nHash Algorithm: %s\n",hashNames[i]);
 			for(uint8_t j=0; j<6; j++){
 				for(uint8_t k=0;k<64;k++) buffer[k]=' ';
 				width = widths[j];
-				curTime = GET_TIME();
+				curTime = getTime();
 				for(uint8_t k=0;k<64;k++){
 					printf("\rBenchmarking: [%s]",buffer); fflush(stdout);
-					iter = 1UL<<(iterShifts-3);
+					iter = 1UL<<(iterShifts-9);
 					ctr = iter;
 					do{
 						hashFunction[i](header,hash,width);
@@ -57,7 +51,7 @@ int main(int argc, char** argv){
 					buffer[k] = '#';
 				}
 				printf("\r%*s\r",80,"");
-				printf("\tProcessing %lu bytes %u times took %ums\n", width, 1UL<<(iterShifts), GET_TIME()-curTime);
+				printf("\tProcessing %u bytes %lu times took %lums\n", width, 1UL<<(iterShifts), getTime()-curTime);
 			}
 		}
 		
@@ -66,8 +60,7 @@ int main(int argc, char** argv){
 			printf("\nHash Algorithm: %s\n",hashNames[i]);
 			for(uint8_t j=0; j<6; j++){
 				width = widths[j];
-				printf("\tInput Width: %u bytes\n", width);
-				curTime = GET_TIME();
+				curTime = getTime();
 				ctr = iter;
 				do{
 					hashFunction[i](header,hash,width);
@@ -79,7 +72,7 @@ int main(int argc, char** argv){
 					hashFunction[i](header,hash,width);
 					hashFunction[i](header,hash,width);
 				}while(--ctr);
-				printf("\tCalculating %lu hashes took: %ums\n", 1UL<<(iterShifts), GET_TIME()-curTime);
+				printf("\tProcessing %u bytes %lu times took %lums\n", width, 1UL<<(iterShifts), getTime()-curTime);
 			}
 		}
 	}
