@@ -28,7 +28,7 @@ int main(int argc, char** argv){
 		char buffer[65] = {0};
 		for(uint8_t i=0; i<12; i++){
 			printf("\nHash Algorithm: %s\n",hashNames[i]);
-			for(uint8_t j=0; j<5; j++){
+			for(uint8_t j=0; j<6; j++){
 				for(uint8_t k=0;k<64;k++) buffer[k]=' ';
 				width = widths[j];
 				curTime = GET_TIME;
@@ -56,7 +56,7 @@ int main(int argc, char** argv){
 	}else{
 		for(uint8_t i=0; i<12; i++){
 			printf("\nHash Algorithm: %s\n",hashNames[i]);
-			for(uint8_t j=0; j<5; j++){
+			for(uint8_t j=0; j<6; j++){
 				width = widths[j];
 				printf("\tInput Width: %u bytes\n", width);
 				curTime = GET_TIME;
