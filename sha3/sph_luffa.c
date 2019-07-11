@@ -77,33 +77,10 @@ static const sph_u32 V_INIT[5][8] = {
 	}
 };
 
-static const sph_u32 RC00[8] = {
-	SPH_C32(0x303994a6), SPH_C32(0xc0e65299),
-	SPH_C32(0x6cc33a12), SPH_C32(0xdc56983e),
-	SPH_C32(0x1e00108f), SPH_C32(0x7800423d),
-	SPH_C32(0x8f5b7882), SPH_C32(0x96e1db12)
-};
 
-static const sph_u32 RC04[8] = {
-	SPH_C32(0xe0337818), SPH_C32(0x441ba90d),
-	SPH_C32(0x7f34d442), SPH_C32(0x9389217f),
-	SPH_C32(0xe5a8bce6), SPH_C32(0x5274baf4),
-	SPH_C32(0x26889ba7), SPH_C32(0x9a226e9d)
-};
 
-static const sph_u32 RC10[8] = {
-	SPH_C32(0xb6de10ed), SPH_C32(0x70f47aae),
-	SPH_C32(0x0707a3d4), SPH_C32(0x1c1e8f51),
-	SPH_C32(0x707a3d45), SPH_C32(0xaeb28562),
-	SPH_C32(0xbaca1589), SPH_C32(0x40a46f3e)
-};
 
-static const sph_u32 RC14[8] = {
-	SPH_C32(0x01685f3d), SPH_C32(0x05a17cf4),
-	SPH_C32(0xbd09caca), SPH_C32(0xf4272b28),
-	SPH_C32(0x144ae5cc), SPH_C32(0xfaa7ae2b),
-	SPH_C32(0x2e48f1c1), SPH_C32(0xb923c704)
-};
+
 
 #if SPH_LUFFA_PARALLEL
 
@@ -454,6 +431,34 @@ static const sph_u32 RC44[8] = {
 	} while (0)
 
 #else
+
+static const sph_u32 RC00[8] = {
+	SPH_C32(0x303994a6), SPH_C32(0xc0e65299),
+	SPH_C32(0x6cc33a12), SPH_C32(0xdc56983e),
+	SPH_C32(0x1e00108f), SPH_C32(0x7800423d),
+	SPH_C32(0x8f5b7882), SPH_C32(0x96e1db12)
+};
+
+static const sph_u32 RC04[8] = {
+	SPH_C32(0xe0337818), SPH_C32(0x441ba90d),
+	SPH_C32(0x7f34d442), SPH_C32(0x9389217f),
+	SPH_C32(0xe5a8bce6), SPH_C32(0x5274baf4),
+	SPH_C32(0x26889ba7), SPH_C32(0x9a226e9d)
+};
+
+static const sph_u32 RC10[8] = {
+	SPH_C32(0xb6de10ed), SPH_C32(0x70f47aae),
+	SPH_C32(0x0707a3d4), SPH_C32(0x1c1e8f51),
+	SPH_C32(0x707a3d45), SPH_C32(0xaeb28562),
+	SPH_C32(0xbaca1589), SPH_C32(0x40a46f3e)
+};
+
+static const sph_u32 RC14[8] = {
+	SPH_C32(0x01685f3d), SPH_C32(0x05a17cf4),
+	SPH_C32(0xbd09caca), SPH_C32(0xf4272b28),
+	SPH_C32(0x144ae5cc), SPH_C32(0xfaa7ae2b),
+	SPH_C32(0x2e48f1c1), SPH_C32(0xb923c704)
+};
 
 #define P3   do { \
 		int r; \
