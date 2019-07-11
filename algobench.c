@@ -5,7 +5,15 @@
 #include <time.h>
 #include "sha3.h"
 
-#define GET_TIME (uint32_t)time(NULL)
+// borrowed from yiimp
+long long GET_TIME()
+{
+        long long milliseconds;
+        struct timespec te;
+        clock_gettime(CLOCK_REALTIME, &te);
+        milliseconds = 1000LL*te.tv_sec + round(te.tv_nsec/1e6);
+        return milliseconds;
+}
 
 int main(int argc, char** argv){
 	uint32_t header32[32];
@@ -18,7 +26,7 @@ int main(int argc, char** argv){
 	uint32_t iter          = 1UL<<(iterShifts-3);
 	uint8_t* header        = (uint8_t*)header32;
 	uint8_t* hash          = header;
-	uint32_t curTime       = 0;
+	long long curTime      = 0;
 	uint8_t  width         = 0;
 	uint32_t ctr           = iter;
 	srand(seed);
@@ -31,7 +39,7 @@ int main(int argc, char** argv){
 			for(uint8_t j=0; j<6; j++){
 				for(uint8_t k=0;k<64;k++) buffer[k]=' ';
 				width = widths[j];
-				curTime = GET_TIME;
+				curTime = GET_TIME();
 				for(uint8_t k=0;k<64;k++){
 					printf("\rBenchmarking: [%s]",buffer); fflush(stdout);
 					iter = 1UL<<(iterShifts-3);
@@ -49,7 +57,7 @@ int main(int argc, char** argv){
 					buffer[k] = '#';
 				}
 				printf("\r%*s\r",80,"");
-				printf("\tProcessing %lu bytes %u times took %us\n", width, 1UL<<(iterShifts), GET_TIME-curTime);
+				printf("\tProcessing %lu bytes %u times took %ums\n", width, 1UL<<(iterShifts), GET_TIME()-curTime);
 			}
 		}
 		
@@ -59,7 +67,7 @@ int main(int argc, char** argv){
 			for(uint8_t j=0; j<6; j++){
 				width = widths[j];
 				printf("\tInput Width: %u bytes\n", width);
-				curTime = GET_TIME;
+				curTime = GET_TIME();
 				ctr = iter;
 				do{
 					hashFunction[i](header,hash,width);
@@ -71,7 +79,7 @@ int main(int argc, char** argv){
 					hashFunction[i](header,hash,width);
 					hashFunction[i](header,hash,width);
 				}while(--ctr);
-				printf("\tCalculating %lu hashes took: %us\n", 1UL<<(iterShifts), GET_TIME-curTime);
+				printf("\tCalculating %lu hashes took: %ums\n", 1UL<<(iterShifts), GET_TIME()-curTime);
 			}
 		}
 	}
