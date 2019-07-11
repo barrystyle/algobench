@@ -54,10 +54,6 @@ extern "C"{
                   | ((SPH_C32(x) <<  8) & SPH_C32(0x00FF0000)) \
                   | ((SPH_C32(x) << 24) & SPH_C32(0xFF000000)))
 
-#define AES0      AES0_BE
-#define AES1      AES1_BE
-#define AES2      AES2_BE
-#define AES3      AES3_BE
 
 #define AES_ROUND_BE(X0, X1, X2, X3, K0, K1, K2, K3, Y0, Y1, Y2, Y3)   do { \
 		(Y0) = AES0[((X0) >> 24) & 0xFF] \
@@ -84,10 +80,6 @@ extern "C"{
 #else
 
 #define AESx(x)   SPH_C32(x)
-#define AES0      AES0_LE
-#define AES1      AES1_LE
-#define AES2      AES2_LE
-#define AES3      AES3_LE
 
 #define AES_ROUND_LE(X0, X1, X2, X3, K0, K1, K2, K3, Y0, Y1, Y2, Y3)   do { \
 		(Y0) = AES0[(X0) & 0xFF] \
