@@ -11,6 +11,7 @@
 #include "sha3/sph_hamsi.h"
 #include "sha3/sph_fugue.h"
 #include "sha3/sph_shabal.h"
+#include "md6/md6.h"
 
 #define uint8_t unsigned char
 
@@ -98,6 +99,13 @@ inline static const void hash12(const uint8_t* input, uint8_t* output, uint8_t d
 	sph_shabal512_close(&ctx_shabal, output);
 } 
 
+inline static const void hash13(const uint8_t* input, uint8_t* output, uint8_t dataLen) {		
+	md6_state state;
+	md6_init(&state, 512);
+	md6_update(&state, input, dataLen);
+	md6_final(&state, output);
+} 
+
 typedef  void (*hash_t)(const uint8_t*, uint8_t*, uint8_t);
-hash_t hashFunction[12] = {&hash1, &hash2, &hash3,  &hash4,  &hash5, &hash6, &hash7,
-			   &hash8, &hash9, &hash10, &hash11, &hash12};
+hash_t hashFunction[13] = {&hash1, &hash2, &hash3,  &hash4,  &hash5, &hash6, &hash7,
+			   &hash8, &hash9, &hash10, &hash11, &hash12, &hash13};
