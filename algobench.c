@@ -13,8 +13,8 @@ uint64_t getTime(){
 int main(int argc, char** argv){
 	uint32_t header32[32];
 	uint8_t  widths[6]     = {32, 48, 64, 80, 96, 112};
-	char*    hashNames[12] = {"Blue Midnight Wish [BMW]", "Groestl", "Skein", "JH", "Keccak",
-			          "Luffa", "Shavite", "SIMD", "Echo", "Hamsi", "Fugue", "Shabal"};
+	char*    hashNames[13] = {"Blue Midnight Wish [BMW]", "Groestl", "Skein", "JH", "Keccak",
+			          "Luffa", "Shavite", "SIMD", "Echo", "Hamsi", "Fugue", "Shabal", "MD6"};
 	uint8_t  printing      = argc>1?atoi(argv[1]):0;
 	uint8_t  iterShifts    = argc>2?atoi(argv[2]):20;
 	uint32_t seed          = argc>3?atoi(argv[3]):0x89ABCDEF;
@@ -28,7 +28,7 @@ int main(int argc, char** argv){
 	for(uint8_t i=0;i<32;i++) header32[i] = rand();
 	if(printing){
 		char buffer[65] = {0};
-		for(uint8_t i=0; i<12; i++){
+		for(uint8_t i=0; i<13; i++){
 			printf("\nHash Algorithm: %s\n",hashNames[i]);
 			for(uint8_t j=0; j<6; j++){
 				for(uint8_t k=0;k<64;k++) buffer[k]=' ';
@@ -56,7 +56,7 @@ int main(int argc, char** argv){
 		}
 		
 	}else{
-		for(uint8_t i=0; i<12; i++){
+		for(uint8_t i=0; i<13; i++){
 			printf("\nHash Algorithm: %s\n",hashNames[i]);
 			for(uint8_t j=0; j<6; j++){
 				width = widths[j];
